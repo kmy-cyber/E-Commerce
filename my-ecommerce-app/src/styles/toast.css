@@ -1,0 +1,45 @@
+/* Estilos personalizados para los toasts */
+
+/* Toast de éxito */
+.Toastify__toast--success {
+  background: #4caf50 !important; /* Verde */
+  color: white !important;
+}
+
+/* Toast de error */
+.Toastify__toast--error {
+  background: #c9524a !important; /* Rojo */
+  color: white !important;
+}
+
+/* Toast de información */
+.Toastify__toast--info {
+  background: #4c93cd !important; /* Azul */
+  color: white !important;
+}
+
+/* Toast de advertencia */
+.Toastify__toast--warning {
+  background: #e1a346 !important; /* Naranja */
+  color: white !important;
+}
+
+/* Barra de progreso */
+.Toastify__progress-bar {
+  background: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Color del texto del mensaje */
+.Toastify__toast-body {
+  color: white !important;
+}
+
+/* Botón de cerrar */
+.Toastify__close-button {
+  color: white !important;
+  opacity: 0.7;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1;
+}

@@ -1,0 +1,48 @@
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  background-color: #f8f8f8;
+}
+
+:root {
+  --color-primary: #2c3e50;
+  --color-accent: #27ae60;
+  --color-warning: #e67e22;
+  --color-danger: #c0392b;
+  --color-neutral-dark: #34495e;
+  --color-neutral-medium: #7f8c8d;
+  --color-neutral-light: #ecf0f1;
+  --color-text-light: #ecf0f1;
+}
+
+/* Animations for CartDisplay */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUpFadeIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-scale-up-fade-in {
+  animation: scaleUpFadeIn 0.3s ease-out forwards;
+}
