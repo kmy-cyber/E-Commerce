@@ -1,5 +1,5 @@
 export const API_CONFIG = {
-  BASE_URL: "http://localhost:3002/api",
+  BASE_URL: process.env.REACT_APP_BASE_URL || "http://localhost:3002/api",
   TIMEOUT: 10000,
   CART_EXPIRY_MINUTES: 30,
 };
@@ -27,4 +27,5 @@ export const FALLBACK_CATEGORIES = [
   "Aseo",
   "Comida",
   "Otros",
+
 ];
