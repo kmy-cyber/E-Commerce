@@ -2,7 +2,7 @@
 const jwt = require('jsonwebtoken');
 
 // Contraseña de administrador (¡Solo para prototipo! En producción, usar hashing y una DB)
-const ADMIN_PASSWORD = 'adminpassword';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'adminpassword';
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key'; // Debería ser una clave compleja en .env
 
 // Login del administrador

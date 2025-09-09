@@ -460,7 +460,7 @@ const ProductListAdmin: React.FC<ProductListAdminProps> = ({
                     </td>
                     <td className="py-4 px-6">
                       <div className="text-lg font-bold text-green-600">
-                        ${product.enrollmentPrice.toFixed(2)}
+                        ${Number(product.enrollmentPrice).toFixed(2)}
                       </div>
                     </td>
                     <td className="py-4 px-6">

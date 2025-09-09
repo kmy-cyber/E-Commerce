@@ -56,7 +56,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
         <p className="text-gray-700 text-base mb-4 flex-grow">{product.description}</p>
         <div className="flex justify-between items-baseline mb-4">
           <span className="text-teal-700 text-3xl font-extrabold"> {/* Precio más sobrio */}
-            ${product.enrollmentPrice.toFixed(2)}
+            ${Number(product.enrollmentPrice).toFixed(2)}
           </span>
           <span className="text-gray-600 text-sm">Stock: {product.stock}</span>
         </div>

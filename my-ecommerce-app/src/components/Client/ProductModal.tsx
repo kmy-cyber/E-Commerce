@@ -118,7 +118,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onClose, a
                 <div className="flex items-center justify-between mb-6">
                   {/* Dynamically update price based on quantity */}
                   <span className="text-4xl font-bold text-teal-700">
-                    ${(product.enrollmentPrice * quantity).toFixed(2)}
+                    ${Number(product.enrollmentPrice * quantity).toFixed(2)}
                   </span>
                 </div>
 

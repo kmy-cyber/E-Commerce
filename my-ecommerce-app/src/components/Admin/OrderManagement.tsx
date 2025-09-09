@@ -268,7 +268,7 @@ const OrderManagement: React.FC = () => {
                       </div>
                       <div className="bg-white rounded-md px-3 py-1 shadow-sm border border-gray-100">
                         <div className="text-base font-bold text-teal-700">
-                          ${order.totalAmount.toFixed(2)}
+                          ${Number(order.totalAmount).toFixed(2)}
                         </div>
                         <div className="text-xs text-gray-500 text-center">
                           {order.items.length} producto
@@ -440,10 +440,10 @@ const OrderManagement: React.FC = () => {
                               </div>
                               <div className="text-right">
                                 <span className="font-bold text-base text-gray-900">
-                                  ${(item.price * item.quantity).toFixed(2)}
+                                  ${Number(item.price * item.quantity).toFixed(2)}
                                 </span>
                                 <div className="text-xs text-gray-500">
-                                  ${item.price.toFixed(2)} c/u
+                                  ${Number(item.price).toFixed(2)} c/u
                                 </div>
                               </div>
                             </div>

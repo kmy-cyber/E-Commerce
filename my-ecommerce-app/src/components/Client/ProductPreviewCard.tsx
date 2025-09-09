@@ -67,7 +67,7 @@ const ProductPreviewCard: React.FC<ProductPreviewCardProps> = ({ product, onClic
 
         <div className="flex justify-between items-center">
           <span className="text-teal-700 text-xl font-bold">
-            ${product.enrollmentPrice.toFixed(2)}
+            ${Number(product.enrollmentPrice).toFixed(2)}
           </span>
           <span className="text-xs text-gray-500">
             Stock: {product.stock}

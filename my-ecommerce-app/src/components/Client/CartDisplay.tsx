@@ -74,7 +74,7 @@ const CartDisplay: React.FC<CartDisplayProps> = ({
         .map((item) => {
           const product = products.find((p) => p.id === item.productId);
           if (!product) return "";
-          return `• ${product.name} - Cantidad: ${item.quantity} - $${(
+          return `• ${product.name} - Cantidad: ${item.quantity} - $${Number(
             product.enrollmentPrice * item.quantity
           ).toFixed(2)}`;
         })
@@ -205,7 +205,7 @@ const CartDisplay: React.FC<CartDisplayProps> = ({
                         </p>
                         <p className="text-xl font-bold text-teal-700 mb-2">
                           $
-                          {(product.enrollmentPrice * item.quantity).toFixed(2)}
+                          {Number(product.enrollmentPrice * item.quantity).toFixed(2)}
                         </p>
                       </div>
                       <div className="flex items-center space-x-3">
@@ -258,7 +258,7 @@ const CartDisplay: React.FC<CartDisplayProps> = ({
             </div>
             <div className="flex flex-col sm:flex-row justify-between items-center mt-6 pt-4 border-t-2 border-gray-100">
               <h3 className="text-3xl font-extrabold text-gray-900 mb-4 sm:mb-0">
-                Total: ${calculateTotalPrice().toFixed(2)}
+                Total: ${Number(calculateTotalPrice()).toFixed(2)}
               </h3>
               <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
                 <button
@@ -337,7 +337,7 @@ const CartDisplay: React.FC<CartDisplayProps> = ({
                         </div>
                       </div>
                       <span className="font-bold text-gray-700">
-                        ${(product.enrollmentPrice * item.quantity).toFixed(2)}
+                        ${Number(product.enrollmentPrice * item.quantity).toFixed(2)}
                       </span>
                     </div>
                   );
@@ -348,7 +348,7 @@ const CartDisplay: React.FC<CartDisplayProps> = ({
                 <div className="flex justify-between items-center text-2xl">
                   <span className="font-extrabold text-gray-900">Total:</span>
                   <span className="font-extrabold text-teal-700">
-                    ${calculateTotalPrice().toFixed(2)}
+                    ${Number(calculateTotalPrice()).toFixed(2)}
                   </span>
                 </div>
               </div>
