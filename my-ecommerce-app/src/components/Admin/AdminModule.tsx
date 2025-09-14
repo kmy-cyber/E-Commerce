@@ -65,12 +65,12 @@ const AdminModule: React.FC<AdminModuleProps> = ({ appContext }) => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-teal-50">
       {/* Header moderno */}
       <div className="bg-white shadow-lg border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-4">
-              <div className="bg-gradient-to-r from-teal-600 to-teal-700 p-3 rounded-xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
+          <div className="flex justify-between items-center gap-3">
+            <div className="flex items-center space-x-2 sm:space-x-4 min-w-0 flex-1">
+              <div className="bg-gradient-to-r from-teal-600 to-teal-700 p-2 sm:p-3 rounded-xl flex-shrink-0">
                 <svg
-                  className="w-8 h-8 text-white"
+                  className="w-6 h-6 sm:w-8 sm:h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -83,21 +83,21 @@ const AdminModule: React.FC<AdminModuleProps> = ({ appContext }) => {
                   />
                 </svg>
               </div>
-              <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-teal-700 bg-clip-text text-transparent">
+              <div className="min-w-0 flex-1">
+                <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-teal-600 to-teal-700 bg-clip-text text-transparent truncate">
                   Panel de Administración
                 </h1>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-xs sm:text-sm hidden sm:block">
                   Gestiona tu inventario y productos
                 </p>
               </div>
             </div>
             <button
               onClick={handleAdminLogout}
-              className="flex items-center space-x-2 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300"
+              className="flex items-center justify-center space-x-1 sm:space-x-2 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold py-2 sm:py-3 px-3 sm:px-6 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 flex-shrink-0 text-xs sm:text-sm"
             >
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4 sm:w-5 sm:h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -109,7 +109,8 @@ const AdminModule: React.FC<AdminModuleProps> = ({ appContext }) => {
                   d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
                 />
               </svg>
-              <span>Cerrar Sesión</span>
+              <span className="hidden sm:inline">Cerrar Sesión</span>
+              <span className="sm:hidden">Cerrar</span>
             </button>
           </div>
         </div>
