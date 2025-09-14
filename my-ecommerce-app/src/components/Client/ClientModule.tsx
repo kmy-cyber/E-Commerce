@@ -98,17 +98,18 @@ const ClientModule: React.FC<ClientModuleProps> = ({ appContext }) => {
         isActive={isActive || false}
       />
       
-      <div className="bg-white p-6 rounded-xl shadow-md">
-        <h2 className="text-5xl font-extrabold text-gray-800 text-center mb-8">
+      <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-800 text-center mb-6 sm:mb-8">
           Bienvenido a nuestra Tienda
         </h2>
 
-      <div className="mb-6 flex flex-wrap justify-center gap-3 p-4 bg-gray-50 rounded-lg shadow-inner">
+      <div className="mb-6 p-3 sm:p-4 bg-gray-50 rounded-lg shadow-inner">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
         {availableCategories.map(category => (
           <button
             key={category}
             onClick={() => setSelectedCategory(category)}
-            className={`py-2 px-5 rounded-full text-lg font-semibold transition-all duration-300
+            className={`py-2 px-3 sm:px-5 rounded-full text-sm sm:text-lg font-semibold transition-all duration-300
               ${selectedCategory === category
                 ? 'bg-teal-700 text-white shadow-md'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300 hover:shadow'
@@ -117,16 +118,17 @@ const ClientModule: React.FC<ClientModuleProps> = ({ appContext }) => {
             {category}
           </button>
         ))}
+        </div>
       </div>
 
       <div className="flex justify-end mb-6">
         <button
           onClick={() => setShowCart(!showCart)}
-          className="bg-gray-700 hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-full shadow-md transform hover:scale-105 transition-all duration-300 flex items-center"
+          className="bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 sm:py-3 px-4 sm:px-6 rounded-full shadow-md transform hover:scale-105 transition-all duration-300 flex items-center text-sm sm:text-base"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 mr-2"
+            className="h-5 w-5 sm:h-6 sm:w-6 mr-2"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -138,7 +140,9 @@ const ClientModule: React.FC<ClientModuleProps> = ({ appContext }) => {
               d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
             />
           </svg>
-          Ver Carrito ({totalItemsInCart})
+          <span className="hidden sm:inline">Ver Carrito</span>
+          <span className="sm:hidden">Carrito</span>
+          ({totalItemsInCart})
         </button>
       </div>
 
@@ -162,7 +166,7 @@ const ClientModule: React.FC<ClientModuleProps> = ({ appContext }) => {
           No hay productos disponibles en esta categoría.
         </p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-6">
           {filteredProducts.map((product) => (
             <ProductPreviewCard
               key={product.id}

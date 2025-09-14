@@ -170,34 +170,37 @@ const OrderManagement: React.FC = () => {
   const ordersToShow = activeTab === "pending" ? pendingOrders : allOrders;
 
   return (
-    <div className="p-6">
-      <div className="mb-6">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">
+    <div className="p-4 sm:p-6 max-w-7xl mx-auto">
+      <div className="mb-4 sm:mb-6">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
           Gestión de Órdenes
         </h2>
 
         {/* Tabs */}
         <div className="border-b border-gray-200">
-          <nav className="-mb-px flex space-x-8">
+          <nav className="-mb-px flex space-x-2 sm:space-x-8 overflow-x-auto scrollbar-hide">
             <button
               onClick={() => setActiveTab("pending")}
-              className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              className={`py-2 px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap flex-shrink-0 ${
                 activeTab === "pending"
                   ? "border-teal-500 text-teal-600"
                   : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
               }`}
             >
-              Órdenes Pendientes ({pendingOrders.length})
+              <span className="hidden sm:inline">Órdenes Pendientes</span>
+              <span className="sm:hidden">Pendientes</span>
+              <span className="ml-1">({pendingOrders.length})</span>
             </button>
             <button
               onClick={() => setActiveTab("all")}
-              className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              className={`py-2 px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap flex-shrink-0 ${
                 activeTab === "all"
                   ? "border-teal-500 text-teal-600"
                   : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
               }`}
             >
-              Todas las Órdenes
+              <span className="hidden sm:inline">Todas las Órdenes</span>
+              <span className="sm:hidden">Todas</span>
             </button>
           </nav>
         </div>
@@ -229,7 +232,7 @@ const OrderManagement: React.FC = () => {
           </p>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-3 sm:space-y-4">
           {ordersToShow.map((order) => {
             const isExpanded = expandedOrders.has(order.id);
             return (
@@ -243,81 +246,86 @@ const OrderManagement: React.FC = () => {
                     : "border-l-gray-400 hover:shadow-gray-100"
                 } hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5`}
               >
-                <div className="p-4">
-                  {/* Vista compacta - siempre visible */}
-                  <div className="flex justify-between items-center mb-2">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex items-center space-x-2">
-                        <div
-                          className={`w-2 h-2 rounded-full ${
-                            order.status === "pending"
-                              ? "bg-yellow-400 animate-pulse"
-                              : order.status === "confirmed"
-                              ? "bg-green-400"
-                              : "bg-gray-400"
-                          }`}
-                        ></div>
-                        <div>
-                          <h3 className="text-lg font-bold text-gray-900">
-                            Orden #{order.orderNumber}
-                          </h3>
-                          <p className="text-xs text-gray-500">
-                            {formatDate(order.createdAt)}
-                          </p>
-                        </div>
+                <div className="p-3 sm:p-4">
+                  {/* Vista compacta - Layout responsive: vertical en móvil, horizontal en desktop */}
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+                    {/* Información principal */}
+                    <div className="flex items-center space-x-2 sm:space-x-4 min-w-0 flex-1">
+                      <div
+                        className={`w-2 h-2 rounded-full flex-shrink-0 ${
+                          order.status === "pending"
+                            ? "bg-yellow-400 animate-pulse"
+                            : order.status === "confirmed"
+                            ? "bg-green-400"
+                            : "bg-gray-400"
+                        }`}
+                      ></div>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-base sm:text-lg font-bold text-gray-900 truncate">
+                          Orden #{order.orderNumber}
+                        </h3>
+                        <p className="text-xs text-gray-500">
+                          {formatDate(order.createdAt)}
+                        </p>
                       </div>
-                      <div className="bg-white rounded-md px-3 py-1 shadow-sm border border-gray-100">
-                        <div className="text-base font-bold text-teal-700">
+                    </div>
+                    
+                    {/* Información de precio - móvil: fila separada, desktop: inline */}
+                    <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-4 sm:flex-shrink-0">
+                      <div className="bg-white rounded-md px-3 py-1 sm:py-2 shadow-sm border border-gray-100 flex-shrink-0">
+                        <div className="text-sm sm:text-base font-bold text-teal-700">
                           ${Number(order.totalAmount).toFixed(2)}
                         </div>
                         <div className="text-xs text-gray-500 text-center">
-                          {order.items.length} producto
-                          {order.items.length !== 1 ? "s" : ""}
+                          {order.items.length} producto{order.items.length !== 1 ? "s" : ""}
                         </div>
                       </div>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span
-                        className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(
-                          order.status
-                        )}`}
-                      >
-                        {getStatusText(order.status)}
-                      </span>
-                      <button
-                        onClick={() => toggleOrderExpansion(order.id)}
-                        className="bg-white hover:bg-teal-50 text-teal-700 border border-teal-200 hover:border-teal-300 px-3 py-1 rounded-md text-xs font-semibold transition-all duration-200 flex items-center space-x-1 shadow-sm hover:shadow-md"
-                      >
-                        <span>{isExpanded ? "Ocultar" : "Detalles"}</span>
-                        <svg
-                          className={`w-3 h-3 transition-transform duration-300 ${
-                            isExpanded ? "rotate-180" : ""
-                          }`}
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
+                      
+                      {/* Estado y botón - siempre en la misma línea */}
+                      <div className="flex items-center space-x-2">
+                        <span
+                          className={`px-2 sm:px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap ${getStatusColor(
+                            order.status
+                          )}`}
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 9l-7 7-7-7"
-                          />
-                        </svg>
-                      </button>
+                          {getStatusText(order.status)}
+                        </span>
+                        <button
+                          onClick={() => toggleOrderExpansion(order.id)}
+                          className="bg-white hover:bg-teal-50 text-teal-700 border border-teal-200 hover:border-teal-300 px-2 sm:px-3 py-1 rounded-md text-xs font-semibold transition-all duration-200 flex items-center space-x-1 shadow-sm hover:shadow-md flex-shrink-0"
+                        >
+                          <span className="hidden sm:inline">{isExpanded ? "Ocultar" : "Detalles"}</span>
+                          <span className="sm:hidden">{isExpanded ? "−" : "+"}</span>
+                          <svg
+                            className={`w-3 h-3 transition-transform duration-300 ${
+                              isExpanded ? "rotate-180" : ""
+                            } hidden sm:block`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M19 9l-7 7-7-7"
+                            />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Botones de acción - siempre visibles para órdenes pendientes */}
+                  {/* Botones de acción - responsive para órdenes pendientes */}
                   {order.status === "pending" && (
-                    <div className="flex space-x-2 pb-2 border-b border-gray-100">
+                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-2 pt-2 sm:pt-3 border-t border-gray-100 mt-2 sm:mt-3">
                       <button
                         onClick={() => handleConfirmOrder(order.id)}
                         disabled={processingOrderId === order.id}
-                        className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-medium py-2 px-4 rounded-lg shadow-md hover:shadow-green-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 transition-all duration-200 flex items-center space-x-1 text-sm"
+                        className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-medium py-2 px-3 sm:px-4 rounded-lg shadow-md hover:shadow-green-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-1 text-xs sm:text-sm flex-1 sm:flex-none"
                       >
                         <svg
-                          className="w-3 h-3"
+                          className="w-3 h-3 sm:w-4 sm:h-4"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -338,10 +346,10 @@ const OrderManagement: React.FC = () => {
                       <button
                         onClick={() => handleRejectOrder(order.id)}
                         disabled={processingOrderId === order.id}
-                        className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-medium py-2 px-4 rounded-lg shadow-md hover:shadow-red-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 transition-all duration-200 flex items-center space-x-1 text-sm"
+                        className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-medium py-2 px-3 sm:px-4 rounded-lg shadow-md hover:shadow-red-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-1 text-xs sm:text-sm flex-1 sm:flex-none"
                       >
                         <svg
-                          className="w-3 h-3"
+                          className="w-3 h-3 sm:w-4 sm:h-4"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -369,7 +377,7 @@ const OrderManagement: React.FC = () => {
                         <div className="bg-gradient-to-r from-amber-50 to-yellow-50 rounded-lg p-3 border-l-4 border-amber-400">
                           <div className="flex items-center space-x-2 mb-2">
                             <svg
-                              className="w-4 h-4 text-amber-600"
+                              className="w-4 h-4 text-amber-600 flex-shrink-0"
                               fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24"
@@ -385,7 +393,7 @@ const OrderManagement: React.FC = () => {
                               Notas
                             </h4>
                           </div>
-                          <p className="text-xs text-amber-700 font-medium">
+                          <p className="text-xs text-amber-700 font-medium break-words">
                             {order.notes}
                           </p>
                         </div>
@@ -394,7 +402,7 @@ const OrderManagement: React.FC = () => {
                       <div className="bg-white rounded-lg p-3 border border-gray-200">
                         <div className="flex items-center space-x-2 mb-3">
                           <svg
-                            className="w-4 h-4 text-teal-600"
+                            className="w-4 h-4 text-teal-600 flex-shrink-0"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -414,19 +422,19 @@ const OrderManagement: React.FC = () => {
                           {order.items.map((item, index) => (
                             <div
                               key={item.id}
-                              className="flex justify-between items-center bg-gradient-to-r from-gray-50 to-white p-3 rounded-md border border-gray-100 hover:shadow-sm transition-all duration-200"
+                              className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-4 bg-gradient-to-r from-gray-50 to-white p-3 rounded-md border border-gray-100 hover:shadow-sm transition-all duration-200"
                             >
-                              <div className="flex items-center space-x-2">
-                                <div className="w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center">
+                              <div className="flex items-center space-x-2 min-w-0 flex-1">
+                                <div className="w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0">
                                   <span className="text-teal-700 font-bold text-xs">
                                     {index + 1}
                                   </span>
                                 </div>
-                                <div>
-                                  <span className="font-semibold text-gray-900 text-sm">
+                                <div className="min-w-0 flex-1">
+                                  <span className="font-semibold text-gray-900 text-sm block truncate">
                                     {item.productName}
                                   </span>
-                                  <div className="flex items-center space-x-1 mt-1">
+                                  <div className="flex flex-wrap items-center gap-1 mt-1">
                                     <span className="bg-teal-100 text-teal-800 px-2 py-0.5 rounded-full text-xs font-semibold">
                                       x{item.quantity}
                                     </span>
@@ -438,7 +446,7 @@ const OrderManagement: React.FC = () => {
                                   </div>
                                 </div>
                               </div>
-                              <div className="text-right">
+                              <div className="text-left sm:text-right flex-shrink-0">
                                 <span className="font-bold text-base text-gray-900">
                                   ${Number(item.price * item.quantity).toFixed(2)}
                                 </span>

@@ -117,24 +117,24 @@ const CartDisplay: React.FC<CartDisplayProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 p-4 animate-fade-in">
-      <div className="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto relative transform scale-95 opacity-0 animate-scale-up-fade-in">
-        <div className="flex justify-between items-center mb-6 border-b border-gray-200 pb-4">
-          <h3 className="text-4xl font-extrabold text-gray-900">
-            Tu Carrito de Compras
+    <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 p-2 sm:p-4 animate-fade-in">
+      <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-8 w-full max-w-sm sm:max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto relative transform scale-95 opacity-0 animate-scale-up-fade-in">
+        <div className="flex justify-between items-center mb-4 sm:mb-6 border-b border-gray-200 pb-3 sm:pb-4">
+          <h3 className="text-2xl sm:text-4xl font-extrabold text-gray-900">
+            Tu Carrito
           </h3>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-800 text-4xl font-light leading-none transition-transform duration-200 hover:rotate-90"
+            className="text-gray-500 hover:text-gray-800 text-3xl sm:text-4xl font-light leading-none transition-transform duration-200 hover:rotate-90"
           >
             &times;
           </button>
         </div>
 
         {cart.length === 0 ? (
-          <div className="text-center py-12">
+          <div className="text-center py-8 sm:py-12">
             <svg
-              className="mx-auto h-24 w-24 text-gray-300"
+              className="mx-auto h-16 w-16 sm:h-24 sm:w-24 text-gray-300"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -146,31 +146,31 @@ const CartDisplay: React.FC<CartDisplayProps> = ({
                 d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
               />
             </svg>
-            <p className="text-gray-700 text-2xl mt-4 font-semibold">
+            <p className="text-gray-700 text-lg sm:text-2xl mt-4 font-semibold">
               Tu carrito está vacío.
             </p>
-            <p className="text-gray-500 mt-2">
+            <p className="text-gray-500 mt-2 text-sm sm:text-base">
               ¡Explora nuestros productos y añade algunos!
             </p>
             <button
               onClick={onClose}
-              className="mt-6 bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300"
+              className="mt-4 sm:mt-6 bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 sm:py-3 px-6 sm:px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 text-sm sm:text-base"
             >
               Continuar Comprando
             </button>
           </div>
         ) : (
           <>
-            <div className="space-y-6 mb-6">
+            <div className="space-y-4 sm:space-y-6 mb-4 sm:mb-6">
               {cart.map((item) => {
                 const product = products.find((p) => p.id === item.productId);
                 if (!product) return null;
                 return (
                   <div
                     key={item.productId}
-                    className="flex items-center bg-gray-50 p-4 rounded-xl shadow-sm border border-gray-100"
+                    className="flex items-center bg-gray-50 p-3 sm:p-4 rounded-xl shadow-sm border border-gray-100"
                   >
-                    <div className="relative w-24 h-24 mr-5 flex-shrink-0">
+                    <div className="relative w-16 h-16 sm:w-24 sm:h-24 mr-3 sm:mr-5 flex-shrink-0">
                       <img
                         src={
                           product.imageUrl ||
@@ -195,69 +195,70 @@ const CartDisplay: React.FC<CartDisplayProps> = ({
                         Imagen no disponible
                       </div>
                     </div>
-                    <div className="flex-grow flex flex-col justify-between">
+                    <div className="flex-grow flex flex-col justify-between min-w-0">
                       <div>
-                        <h4 className="text-xl font-semibold text-gray-900 mb-1">
+                        <h4 className="text-base sm:text-xl font-semibold text-gray-900 mb-1 truncate">
                           {product.name}
                         </h4>
-                        <p className="text-gray-600 text-sm mb-2">
+                        <p className="text-gray-600 text-xs sm:text-sm mb-1 sm:mb-2">
                           {product.category}
                         </p>
-                        <p className="text-xl font-bold text-teal-700 mb-2">
+                        <p className="text-lg sm:text-xl font-bold text-teal-700 mb-1 sm:mb-2">
                           $
                           {Number(product.enrollmentPrice * item.quantity).toFixed(2)}
                         </p>
                       </div>
-                      <div className="flex items-center space-x-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                          <button
+                            onClick={() =>
+                              updateCartItemQuantity(
+                                product.id,
+                                item.quantity - 1
+                              )
+                            }
+                            disabled={item.quantity <= product.minOrderQuantity}
+                            className="bg-gray-200 text-gray-700 hover:bg-gray-300 w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-bold text-sm sm:text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                            -
+                          </button>
+                          <span className="text-sm sm:text-md font-medium text-gray-800 flex items-center gap-1 min-w-0">
+                            {item.quantity}
+                            {item.quantity === product.minOrderQuantity && (
+                              <span className="text-xs text-gray-500 hidden sm:inline">(Min.)</span>
+                            )}
+                          </span>
+                          <button
+                            onClick={() =>
+                              updateCartItemQuantity(
+                                product.id,
+                                item.quantity + 1
+                              )
+                            }
+                            disabled={
+                              product.stock !== undefined &&
+                              item.quantity >= product.stock
+                            }
+                            className="bg-gray-200 text-gray-700 hover:bg-gray-300 w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-bold text-sm sm:text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                            +
+                          </button>
+                        </div>
                         <button
-                          onClick={() =>
-                            updateCartItemQuantity(
-                              product.id,
-                              item.quantity - 1
-                            )
-                          }
-                          disabled={item.quantity <= product.minOrderQuantity}
-                          className="bg-gray-200 text-gray-700 hover:bg-gray-300 w-8 h-8 rounded-full flex items-center justify-center font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                          onClick={() => removeFromCart(item.productId)}
+                          className="bg-red-600 hover:bg-red-700 text-white font-medium py-1.5 sm:py-2 px-3 sm:px-5 rounded-lg shadow-sm transition-all duration-300 text-xs sm:text-sm"
                         >
-                          -
-                        </button>
-                        <span className="text-md font-medium text-gray-800 flex items-center gap-1">
-                          {item.quantity}
-                          {item.quantity === product.minOrderQuantity && (
-                            <span className="text-xs text-gray-500">(Min.)</span>
-                          )}
-                        </span>
-                        <button
-                          onClick={() =>
-                            updateCartItemQuantity(
-                              product.id,
-                              item.quantity + 1
-                            )
-                          }
-                          disabled={
-                            product.stock !== undefined &&
-                            item.quantity >= product.stock
-                          }
-                          className="bg-gray-200 text-gray-700 hover:bg-gray-300 w-8 h-8 rounded-full flex items-center justify-center font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                          +
+                          <span className="hidden sm:inline">Eliminar</span>
+                          <span className="sm:hidden">×</span>
                         </button>
                       </div>
-                    </div>
-                    <div className="flex flex-col items-end">
-                      <button
-                        onClick={() => removeFromCart(item.productId)}
-                        className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-5 rounded-lg shadow-sm transition-all duration-300 text-sm"
-                      >
-                        Eliminar
-                      </button>
                     </div>
                   </div>
                 );
               })}
             </div>
-            <div className="flex flex-col sm:flex-row justify-between items-center mt-6 pt-4 border-t-2 border-gray-100">
-              <h3 className="text-3xl font-extrabold text-gray-900 mb-4 sm:mb-0">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-4 sm:mt-6 pt-4 border-t-2 border-gray-100 space-y-4 sm:space-y-0">
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900">
                 Total: ${Number(calculateTotalPrice()).toFixed(2)}
               </h3>
               <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
@@ -271,17 +272,17 @@ const CartDisplay: React.FC<CartDisplayProps> = ({
                       clearCart();
                     }
                   }}
-                  className="bg-gray-700 hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 w-full sm:w-auto"
+                  className="bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 sm:py-3 px-4 sm:px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 w-full sm:w-auto text-sm sm:text-base"
                 >
                   Vaciar Carrito
                 </button>
 
                 <button
                   onClick={handleBuyNowClick}
-                  className="bg-teal-700 hover:bg-teal-800 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 w-full sm:w-auto"
+                  className="bg-teal-700 hover:bg-teal-800 text-white font-bold py-2 sm:py-3 px-4 sm:px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 w-full sm:w-auto text-sm sm:text-base"
                 >
                   <svg
-                    className="w-5 h-5"
+                    className="w-4 h-4 sm:w-5 sm:h-5"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -303,40 +304,40 @@ const CartDisplay: React.FC<CartDisplayProps> = ({
 
         {/* Diálogo de Resumen del Pedido */}
         {showOrderSummary && (
-          <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-xl shadow-2xl p-6 max-w-md w-full max-h-[80vh] overflow-y-auto">
-              <h4 className="text-3xl font-bold text-gray-800 mb-6 text-center border-b pb-4">
+          <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-2 sm:p-4">
+            <div className="bg-white rounded-xl shadow-2xl p-4 sm:p-6 max-w-xs sm:max-w-md w-full max-h-[80vh] overflow-y-auto">
+              <h4 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 sm:mb-6 text-center border-b pb-3 sm:pb-4">
                 Resumen de tu Pedido
               </h4>
 
-              <div className="space-y-4 mb-6">
+              <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
                 {cart.map((item) => {
                   const product = products.find((p) => p.id === item.productId);
                   if (!product) return null;
                   return (
                     <div
                       key={item.productId}
-                      className="flex justify-between items-center border-b border-gray-100 pb-3 last:border-b-0 last:pb-0"
+                      className="flex justify-between items-center border-b border-gray-100 pb-2 sm:pb-3 last:border-b-0 last:pb-0"
                     >
-                      <div className="flex items-center">
+                      <div className="flex items-center flex-1 min-w-0">
                         <img
                           src={
                             product.imageUrl ||
                             `https://placehold.co/50x50/ADD8E6/000000?text=P`
                           }
                           alt={product.name}
-                          className="w-12 h-12 object-cover rounded-md mr-3"
+                          className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded-md mr-2 sm:mr-3 flex-shrink-0"
                         />
-                        <div>
-                          <p className="font-semibold text-gray-800">
+                        <div className="min-w-0 flex-1">
+                          <p className="font-semibold text-gray-800 text-sm sm:text-base truncate">
                             {product.name}
                           </p>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-xs sm:text-sm text-gray-600">
                             Cantidad: {item.quantity}
                           </p>
                         </div>
                       </div>
-                      <span className="font-bold text-gray-700">
+                      <span className="font-bold text-gray-700 text-sm sm:text-base ml-2">
                         ${Number(product.enrollmentPrice * item.quantity).toFixed(2)}
                       </span>
                     </div>
@@ -344,8 +345,8 @@ const CartDisplay: React.FC<CartDisplayProps> = ({
                 })}
               </div>
 
-              <div className="border-t border-gray-200 pt-4 mt-4 space-y-3">
-                <div className="flex justify-between items-center text-2xl">
+              <div className="border-t border-gray-200 pt-3 sm:pt-4 mt-3 sm:mt-4 space-y-2 sm:space-y-3">
+                <div className="flex justify-between items-center text-xl sm:text-2xl">
                   <span className="font-extrabold text-gray-900">Total:</span>
                   <span className="font-extrabold text-teal-700">
                     ${Number(calculateTotalPrice()).toFixed(2)}
@@ -353,14 +354,14 @@ const CartDisplay: React.FC<CartDisplayProps> = ({
                 </div>
               </div>
 
-              <div className="flex justify-center mt-8 space-x-4">
+              <div className="flex flex-col sm:flex-row justify-center mt-6 sm:mt-8 space-y-3 sm:space-y-0 sm:space-x-4">
                 <button
                   onClick={handleProceedFromSummary}
                   disabled={isProcessingOrder}
-                  className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 sm:py-3 px-4 sm:px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-sm sm:text-base order-2 sm:order-1"
                 >
                   <svg
-                    className="w-5 h-5"
+                    className="w-4 h-4 sm:w-5 sm:h-5"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
@@ -375,7 +376,7 @@ const CartDisplay: React.FC<CartDisplayProps> = ({
                 <button
                   onClick={() => setShowOrderSummary(false)}
                   disabled={isProcessingOrder}
-                  className="bg-gray-400 hover:bg-gray-500 text-white font-bold py-3 px-6 rounded-full shadow-md transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  className="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 sm:py-3 px-4 sm:px-6 rounded-full shadow-md transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-sm sm:text-base order-1 sm:order-2"
                 >
                   Cancelar
                 </button>
