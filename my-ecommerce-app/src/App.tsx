@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AppContextType } from "./interfaces";
 import { AppProvider } from "./context/AppContext";
+import { FooterProvider } from "./context/FooterContext";
 import { Layout } from "./components/layout/Layout";
 import ClientModule from "./components/Client/ClientModule";
 import AdminModule from "./components/Admin/AdminModule";
@@ -50,35 +51,37 @@ const App: React.FC = () => {
   };
 
   return (
-    <AppProvider value={appContextValue}>
-      <Layout view={view} onViewChange={setView}>
-        {view === "client" ? (
-          <ClientModule appContext={appContextValue} />
-        ) : (
-          <AdminModule appContext={appContextValue} />
-        )}
-      </Layout>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        theme="colored"
-        toastStyle={{
-          borderRadius: '8px',
-          fontWeight: '500'
-        }}
-        style={{
-          width: 'auto',
-          maxWidth: '500px'
-        }}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-    </AppProvider>
+    <FooterProvider>
+      <AppProvider value={appContextValue}>
+        <Layout view={view} onViewChange={setView}>
+          {view === "client" ? (
+            <ClientModule appContext={appContextValue} />
+          ) : (
+            <AdminModule appContext={appContextValue} />
+          )}
+        </Layout>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          theme="colored"
+          toastStyle={{
+            borderRadius: '8px',
+            fontWeight: '500'
+          }}
+          style={{
+            width: 'auto',
+            maxWidth: '500px'
+          }}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+      </AppProvider>
+    </FooterProvider>
   );
 };
 

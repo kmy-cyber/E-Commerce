@@ -65,3 +65,18 @@ export interface ToastMessage {
 export interface ToastContextType {
   addToast: (message: string, type?: ToastType) => void;
 }
+
+// Footer configuration interfaces
+export interface FooterConfig {
+  id?: number;
+  companyName: string;
+  companyDescription: string;
+  address: string;
+  phone: string;
+  email: string;
+  facebookUrl: string;
+  instagramUrl: string;
+  twitterUrl: string;
+  showSocialMedia: boolean;
+  copyrightText: string;
+}
